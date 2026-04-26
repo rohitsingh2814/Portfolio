@@ -9,6 +9,7 @@ import { Testimonials } from '@/sections/Tesimonials';
 import { Contact } from '@/sections/contact';
 import { Education } from './sections/Education';
 import {CodingStats} from './sections/stats';
+import { Footer } from './layouts/Footer';
 
 
 
@@ -27,6 +28,7 @@ const App = () => {
         <Contact/>
 
       </main>
+      <Footer/>
      </div>
   );
 }; 

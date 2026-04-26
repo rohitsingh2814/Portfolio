@@ -81,25 +81,30 @@ export const Hero = () => {
                     </div>
                     {/* CTA */}
                     <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
-                        <Button size="lg">
+                        <a href="#contact">
+                             <Button size="lg">
                             Contact Me <ArrowRight className="w-5 h-5" />
                         </Button>
-                        <AnimatedBorderButton>
+                        </a>
+
+                        <a href="/resume.pdf" Download target="blank"> <AnimatedBorderButton>
                             <Download className="w-5 h-5"/>
                             Download CV
                         </AnimatedBorderButton>
+                        </a>
+                        
 
                     </div>
                     {/* socialinks */}
                     <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
                         <span className="text-sm text-muted-foreground">Follow: </span>
                         {[
-                            { icon: FaGithub, href: "#" },
-                            { icon: FaLinkedin, href: "#" },
-                            { icon: FaInstagram, href: "#" },
-                            { icon: SiLeetcode, href: "#" },
+                            { icon: FaGithub, href: "https://github.com/rohitsingh2814" },
+                            { icon: FaLinkedin, href: "https://www.linkedin.com/in/rohit-singh-3527aa270/" },
+                            { icon: FaInstagram, href: "https://www.instagram.com/roohitsiingh/?hl=en" },
+                            { icon: SiLeetcode, href: "https://leetcode.com/u/rohitkrsingh2814/" },
                         ].map((social, idx) => (
-                            <a key={idx} href={social.href} className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300">
+                            <a key={idx} target="blank" href={social.href} className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300">
                                 {<social.icon className="w-5 h-5" />}</a>
                         ))}
 

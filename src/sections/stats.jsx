@@ -92,6 +92,55 @@ const PLATFORMS = [
   },
 ];
 
+// ── Responsive Tab Styles (injected once) ──────────────────
+const TAB_STYLES = `
+  .cs-tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 14px 16px 0;
+  }
+  .cs-tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: 10px 10px 0 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border-bottom: 2px solid transparent;
+    flex-shrink: 0;
+    outline: none;
+  }
+  .cs-tab-label {
+    font-size: 12px;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  /* Medium screens: tighten padding */
+  @media (max-width: 640px) {
+    .cs-tab-btn {
+      padding: 8px 10px;
+      gap: 5px;
+    }
+    .cs-tab-label {
+      font-size: 11px;
+    }
+  }
+  /* Small screens: hide labels, show icons only */
+  @media (max-width: 400px) {
+    .cs-tab-label {
+      display: none;
+    }
+    .cs-tab-btn {
+      padding: 8px 10px;
+    }
+  }
+`;
+
 // ── Difficulty Progress Bar ────────────────────────────────
 const DiffBar = ({ label, value, total, color, textColor }) => {
   const pct = total > 0 ? Math.round((value / total) * 100) : 0;
@@ -139,6 +188,7 @@ const StatNum = ({ label, value, accent }) => (
       borderRadius: "10px",
       padding: "12px 14px",
       flex: 1,
+      minWidth: "80px",
     }}
   >
     <div style={{ fontSize: "11px", color: "var(--color-text-secondary)", marginBottom: "4px" }}>{label}</div>
@@ -277,7 +327,7 @@ const LeetCodePanel = ({ platform }) => {
 
   return (
     <div>
-      <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
+      <div style={{ display: "flex", gap: "10px", marginBottom: "24px", flexWrap: "wrap" }}>
         <StatNum label="Total Solved" value={data.total} accent={platform.accent} />
         <StatNum
           label="Global Rank"
@@ -318,7 +368,7 @@ const GitHubPanel = ({ platform }) => {
 
   return (
     <div>
-      <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
+      <div style={{ display: "flex", gap: "10px", marginBottom: "24px", flexWrap: "wrap" }}>
         <StatNum label="Public Repos" value={data.public_repos} accent={platform.accent} />
         <StatNum label="Followers" value={data.followers} accent={platform.accent} />
         <StatNum label="Following" value={data.following} accent={platform.accent} />
@@ -334,7 +384,7 @@ const GitHubPanel = ({ platform }) => {
 // ── GFG Panel (hardcoded) ──────────────────────────────────
 const GFGPanel = ({ platform }) => (
   <div>
-    <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
+    <div style={{ display: "flex", gap: "10px", marginBottom: "24px", flexWrap: "wrap" }}>
       <StatNum label="Problems Solved" value={GFG_STATS.problemsSolved} accent={platform.accent} />
       <StatNum label="Coding Score" value={GFG_STATS.codingScore} accent={platform.accent} />
       <StatNum
@@ -354,7 +404,7 @@ const GFGPanel = ({ platform }) => (
 // ── HackerRank Panel (hardcoded) ───────────────────────────
 const HackerRankPanel = ({ platform }) => (
   <div>
-    <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
+    <div style={{ display: "flex", gap: "10px", marginBottom: "24px", flexWrap: "wrap" }}>
       <StatNum label="Problems Solved" value={HACKERRANK_STATS.problemsSolved} accent={platform.accent} />
       <StatNum label="Badges" value={HACKERRANK_STATS.badges} accent={platform.accent} />
     </div>
@@ -384,7 +434,7 @@ const HackerRankPanel = ({ platform }) => (
 // ── CodeChef Panel (hardcoded) ─────────────────────────────
 const CodeChefPanel = ({ platform }) => (
   <div>
-    <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
+    <div style={{ display: "flex", gap: "10px", marginBottom: "24px", flexWrap: "wrap" }}>
       <StatNum label="Rating" value={CODECHEF_STATS.rating} accent={platform.accent} />
       <StatNum label="Problems Solved" value={CODECHEF_STATS.problemsSolved} accent={platform.accent} />
       <StatNum
@@ -425,6 +475,9 @@ export const CodingStats = () => {
 
   return (
     <section id="stats" className="py-32 relative overflow-hidden">
+      {/* Inject responsive tab styles */}
+      <style>{TAB_STYLES}</style>
+
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
@@ -464,33 +517,16 @@ export const CodingStats = () => {
               }}
             />
 
-            {/* Platform Tab Bar */}
-            <div
-              style={{
-                display: "flex",
-                borderBottom: "1px solid rgba(255,255,255,0.06)",
-                padding: "16px 20px 0",
-                gap: "4px",
-                overflowX: "auto",
-              }}
-            >
+            {/* Platform Tab Bar — flex-wrap removes scrollbar */}
+            <div className="cs-tab-bar">
               {PLATFORMS.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => setActive(p.id)}
+                  className="cs-tab-btn"
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "7px",
-                    padding: "9px 16px",
-                    borderRadius: "10px 10px 0 0",
-                    border: "none",
                     background: active === p.id ? p.bg : "transparent",
-                    cursor: "pointer",
-                    transition: "all 0.25s ease",
-                    borderBottom: active === p.id ? `2px solid ${p.accent}` : "2px solid transparent",
-                    flexShrink: 0,
-                    outline: "none",
+                    borderBottomColor: active === p.id ? p.accent : "transparent",
                   }}
                 >
                   <div
@@ -515,12 +551,10 @@ export const CodingStats = () => {
                     />
                   </div>
                   <span
+                    className="cs-tab-label"
                     style={{
-                      fontSize: "12px",
                       fontWeight: active === p.id ? 500 : 400,
                       color: active === p.id ? p.accent : "var(--color-text-secondary)",
-                      transition: "color 0.2s",
-                      whiteSpace: "nowrap",
                     }}
                   >
                     {p.name}
@@ -577,9 +611,7 @@ export const CodingStats = () => {
                 alignItems: "center",
               }}
             >
-              <span style={{ fontSize: "11px", color: "var(--color-text-secondary)" }}>
-                {isLive ? "Live via public API" : "Manually updated"}
-              </span>
+             
               <div style={{ display: "flex", gap: "4px" }}>
                 {PLATFORMS.map((p) => (
                   <div
