@@ -7,6 +7,8 @@ import { Projects } from '@/sections/Projects';
 import { Experience } from '@/sections/Experience';
 import { Testimonials } from '@/sections/Tesimonials';
 import { Contact } from '@/sections/contact';
+import { Education } from './sections/Education';
+import {CodingStats} from './sections/stats';
 
 
 
@@ -19,6 +21,8 @@ const App = () => {
         <About/>
         <Projects/>
         <Experience/>
+        <Education/>
+        <CodingStats/>
         <Testimonials/>
         <Contact/>
 

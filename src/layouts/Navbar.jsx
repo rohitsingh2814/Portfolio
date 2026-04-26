@@ -5,6 +5,7 @@ const navLinks=[
     {href:"#About",label:"About"},
     {href:"#Projects",label:"Projects"},
     {href:"#experience",label:"Experience"},
+     {href:"#education",label:"Education"},
     {href:"#testimonials",label:"Testimonials"},
 
 ];
