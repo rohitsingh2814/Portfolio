@@ -1,6 +1,9 @@
+import { useState } from "react";
+
 import { ArrowUpRight} from "lucide-react";
 import { FaGithub} from "react-icons/fa";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
+
 
 
 const projects = [
@@ -40,6 +43,8 @@ const projects = [
 
 
 export const Projects = () => {
+
+  const [show, setShow] = useState(false);
   return (
     <section id="projects" className="py-32 relative overflow-hidden">
       {/* Bg glows */}
@@ -68,12 +73,14 @@ export const Projects = () => {
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, idx) => (
             <div
+
               key={idx}
               className="group glass rounded-2xl overflow-hidden animate-fade-in md:row-span-1"
               style={{ animationDelay: `${(idx + 1) * 100}ms` }}
             >
               {/* Image */}
               <div className="relative overflow-hidden aspect-video">
+                  onClick={() => setShow(!show)}
                 <img
                   src={project.image}
                   alt={project.title}
@@ -85,7 +92,8 @@ export const Projects = () => {
                  to-transparent opacity-60"
                 />
                 {/* Overlay Links */}
-                <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className={ `absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100
+                 transition-opacity duration-300  ${show ? "opacity-100" : ""}`}>
                   <a target="blank"
                     href={project.link}
                     className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
