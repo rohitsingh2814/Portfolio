@@ -4,15 +4,12 @@
 A modern and responsive **personal portfolio website** built using **React + Vite + Tailwind CSS**.
 This portfolio showcases my projects, skills, and experience with a clean UI, fast performance, and smooth user interactions.
 
----
 
 ## 🌐 Live Demo
 
 ```
 https://rohitsingh7667.netlify.app/
 ```
-
----
 
 ## 🛠️ Tech Stack
 
@@ -22,7 +19,6 @@ https://rohitsingh7667.netlify.app/
 * 📧 EmailJS (for contact form)
 * 🧩 Component-based architecture
 
----
 
 ## ✨ Features
 
@@ -33,7 +29,6 @@ https://rohitsingh7667.netlify.app/
 * Contact form with EmailJS integration 📩
 * Easy customization for projects & profile
 
----
 
 ## 📁 Project Structure
 
@@ -50,7 +45,6 @@ portfolio/
 │── vite.config.js
 ```
 
----
 
 ## ⚙️ Setup & Installation
 
@@ -79,7 +73,6 @@ npm run dev
 http://localhost:5173
 ```
 
----
 
 ## 📦 Build for Production
 
@@ -93,7 +86,6 @@ Output folder:
 dist/
 ```
 
----
 
 ## 📧 EmailJS Setup (Contact Form)
 
@@ -120,7 +112,6 @@ VITE_EMAILJS_PUBLIC_KEY=your_public_key
 * Never upload `.env` to GitHub
 * Add `.env` to `.gitignore`
 
----
 
 ## 🖼️ Public Folder Usage
 
@@ -142,7 +133,6 @@ Use in code:
 <img src="/projects/project1.png" />
 ```
 
----
 
 ## 🔗 Customization Guide
 
@@ -161,7 +151,6 @@ Change:
 * Skills
 * Social links
 
----
 
 ### 🔗 Update Social Links
 
@@ -174,7 +163,6 @@ Example:
 }
 ```
 
----
 
 ### 📂 Update Projects
 
@@ -193,7 +181,6 @@ const projects = [
 ];
 ```
 
----
 
 ## 🚀 Deployment
 
@@ -211,14 +198,12 @@ npm run build
 dist
 ```
 
----
 
 ### Vercel
 
 * Framework: Vite
 * Auto-detect settings
 
----
 
 ## 📌 Future Improvements
 
@@ -227,20 +212,17 @@ dist
 * Blog section
 * Backend integration
 
----
 
 ## 🤝 Contributing
 
 Contributions are welcome!
 Feel free to fork and improve.
 
----
 
 ## 📄 License
 
 This project is open source and available under the **MIT License**.
 
----
 
 ## 🙌 Acknowledgements
 
@@ -248,7 +230,6 @@ This project is open source and available under the **MIT License**.
 * Tailwind CSS
 * EmailJS
 
----
 
 ## 👨‍💻 Author
 
