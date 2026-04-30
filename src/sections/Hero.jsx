@@ -33,7 +33,7 @@ const skills = [
 
 
 export const Hero = () => {
-    return (<section className="relative min-h-screen flex items-center overflow-hidden">
+    return (<section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
         {/* bg */}
         <div className="absolute inset-0">
             <img src=" /hero-bg.jpg" alt="hero-image" className="w-full h-full object-cover opacity-40" />

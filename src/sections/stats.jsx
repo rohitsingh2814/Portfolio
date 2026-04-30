@@ -100,6 +100,8 @@ const TAB_STYLES = `
     gap: 4px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
     padding: 14px 16px 0;
+      
+
   }
   .cs-tab-btn {
     display: flex;
@@ -518,6 +520,7 @@ export const CodingStats = () => {
             />
 
             {/* Platform Tab Bar — flex-wrap removes scrollbar */}
+            
             <div className="cs-tab-bar">
               {PLATFORMS.map((p) => (
                 <button
@@ -562,6 +565,7 @@ export const CodingStats = () => {
                 </button>
               ))}
             </div>
+          
 
             {/* Panel Header */}
             <div
