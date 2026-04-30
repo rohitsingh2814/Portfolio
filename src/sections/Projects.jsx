@@ -102,7 +102,7 @@ export const Projects = () => {
                 <div className={ `absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100
                  transition-opacity duration-300  ${show ? "opacity-100" : ""}`}>
                   <a target="blank"
-                    
+                     onClick={(e) => e.stopPropagation()}
                     href={project.link}
                     className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
                   >
@@ -110,6 +110,7 @@ export const Projects = () => {
                   </a>
                   <a target="blank"
                     href={project.github}
+                     onClick={(e) => e.stopPropagation()}
                     className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <FaGithub className="w-5 h-5" />
