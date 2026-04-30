@@ -100,7 +100,7 @@ export const Projects = () => {
                 />
                 {/* Overlay Links */}
                 <div className={ `absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100
-                 transition-opacity duration-300  ${show ? "opacity-100" : ""}`}>
+                 transition-opacity duration-300  ${activeCard === idx ? "!opacity-100" : ""}`}>
                   <a target="blank"
                      onClick={(e) => e.stopPropagation()}
                     href={project.link}
