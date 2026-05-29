@@ -100,6 +100,7 @@ const TAB_STYLES = `
     gap: 4px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
     padding: 14px 16px 0;
+    justify-content:space-between;
       
 
   }
@@ -289,9 +290,10 @@ const LeetCodePanel = ({ platform }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
+     const proxyUrl='https://cors-anywhere.herokuapp.com/';
+     const targeturl='https://leetcode.com/graphql';
   useEffect(() => {
-    fetch("https://leetcode.com/graphql", {
+    fetch(proxyUrl+targeturl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -521,7 +523,7 @@ export const CodingStats = () => {
 
             {/* Platform Tab Bar — flex-wrap removes scrollbar */}
             
-            <div className="cs-tab-bar">
+            <div className="cs-tab-bar ">
               {PLATFORMS.map((p) => (
                 <button
                   key={p.id}
