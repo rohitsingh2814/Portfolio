@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 const experiences = [
   {
     period: "2025 — Present",
@@ -28,9 +30,80 @@ const experiences = [
   },
 ];
 
-export const Experience = () => {
+// ── Scroll-reveal item wrapper ──────────────────────────────
+const RevealItem = ({ children, idx }) => {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -80px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="experience" className="py-32 relative overflow-hidden">
+    <div
+      ref={ref}
+      className="relative grid md:grid-cols-2 gap-8"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0px)" : "translateY(40px)",
+        transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${idx * 0.1}s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${idx * 0.1}s`,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+export const Experience = () => {
+  const sectionRef = useRef(null);
+  const [lineHeight, setLineHeight] = useState(0);
+
+  // Animate the vertical timeline line filling as the section scrolls into view
+  useEffect(() => {
+    const handleScroll = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+
+      const rect = el.getBoundingClientRect();
+      const viewportH = window.innerHeight;
+
+      // Progress: 0 when section top hits bottom of viewport, 1 when section bottom hits top of viewport
+      const total = rect.height + viewportH;
+      const scrolled = viewportH - rect.top;
+      const progress = Math.min(Math.max(scrolled / total, 0), 1);
+
+      setLineHeight(progress * 100);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
+  return (
+    <section
+      id="experience"
+      ref={sectionRef}
+      className="py-32 relative overflow-hidden"
+    >
       <div
         className="absolute top-1/2 left-1/4 w-96
        h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2"
@@ -68,16 +141,22 @@ export const Experience = () => {
 
         {/* Timeline */}
         <div className="relative">
-          <div className="timeline-glow absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent md:-translate-x-1/2 shadow-[0_0_25px_rgba(32,178,166,0.8)]" />
+          {/* Track (static, faint) */}
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 md:-translate-x-1/2" />
+
+          {/* Animated fill that grows on scroll */}
+          <div
+            className="timeline-glow absolute left-0 md:left-1/2 top-0 w-[2px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent md:-translate-x-1/2 shadow-[0_0_25px_rgba(32,178,166,0.8)]"
+            style={{
+              height: `${lineHeight}%`,
+              transition: "height 0.2s ease-out",
+            }}
+          />
 
           {/* Experience Items */}
           <div className="space-y-12">
             {experiences.map((exp, idx) => (
-              <div
-                key={idx}
-                className="relative grid md:grid-cols-2 gap-8 animate-fade-in"
-                style={{ animationDelay: `${(idx + 1) * 150}ms` }}
-              >
+              <RevealItem key={idx} idx={idx}>
                 {/* Timeline Dot */}
                 <div className="absolute left-0 md:left-1/2 top-0 w-3 h-3 bg-primary rounded-full -translate-x-1/2 ring-4 ring-background z-10">
                   {exp.current && (
@@ -120,7 +199,7 @@ export const Experience = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </RevealItem>
             ))}
           </div>
         </div>

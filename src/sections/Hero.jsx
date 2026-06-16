@@ -6,27 +6,45 @@ import {
 } from "lucide-react";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
-import { SiLeetcode } from "react-icons/si";
+import {
+    SiLeetcode,
+    SiReact,
+    SiNextdotjs,
+    SiTypescript,
+    SiNodedotjs,
+    SiGraphql,
+    SiPostgresql,
+    SiMongodb,
+    SiRedis,
+    SiDocker,
+    SiVercel,
+    SiTailwindcss,
+    SiPrisma,
+    SiJest,
+    SiCypress,
+    SiFigma,
+    SiGit,
+    SiGithubactions,
+} from "react-icons/si";
 
 const skills = [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "GraphQL",
-    "PostgreSQL",
-    "MongoDB",
-    "Redis",
-    "Docker",
-    "AWS",
-    "Vercel",
-    "Tailwind CSS",
-    "Prisma",
-    "Jest",
-    "Cypress",
-    "Figma",
-    "Git",
-    "GitHub Actions"
+    { name: "React", icon: SiReact },
+    { name: "Next.js", icon: SiNextdotjs },
+    { name: "TypeScript", icon: SiTypescript },
+    { name: "Node.js", icon: SiNodedotjs },
+    { name: "GraphQL", icon: SiGraphql },
+    { name: "PostgreSQL", icon: SiPostgresql },
+    { name: "MongoDB", icon: SiMongodb },
+    { name: "Redis", icon: SiRedis },
+    { name: "Docker", icon: SiDocker },
+    { name: "Vercel", icon: SiVercel },
+    { name: "Tailwind CSS", icon: SiTailwindcss },
+    { name: "Prisma", icon: SiPrisma },
+    { name: "Jest", icon: SiJest },
+    { name: "Cypress", icon: SiCypress },
+    { name: "Figma", icon: SiFigma },
+    { name: "Git", icon: SiGit },
+    { name: "GitHub Actions", icon: SiGithubactions },
 ];
 
 
@@ -60,21 +78,21 @@ export const Hero = () => {
                 <div className="space-y-8">
                     <div className="animate-fade-in animation-delay-100">
                         <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary ">
-                            <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />Software Engineer • React Spcialist
+                            <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />Software Engineer • React Specialist
                         </span>
                     </div>
                     {/* headling*/}
                     <div className="space-y-4 ">
                         <h1 className="text-5xl md:text-6xl lg:text-7xl fond-bold leading-tight animate-fade-in animation-delay-200 ">
-                            crafting <span className="text-primary glow-text">digital</span>
+                            Crafting <span className="text-primary glow-text">digital</span>
                             <br />
-                            experience With
+                            experience with
                             <br />
                             <span className="font-serif italic font-normal text-white">precision</span>
 
                         </h1>
                         <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-300" >
-                            Hi,I'm Rohit Singh - a software engineer specializing in
+                            Hi, I'm <span className="text-white glow-text">Rohit Singh</span>  - a software engineer specializing in
                             React, Node.js and Problem solving . I bulid scalable, performant web
                             applications that users love.
                         </p>
@@ -144,8 +162,11 @@ export const Hero = () => {
                 <p className="text-sm text-muted-foreground mb-6 text-center">Technologies I Work With:</p>
                 <div className="relative overflow-hidden">
                     <div className="flex animate-marquee">
-                        {[...skills, ...skills].map((skills, idx) => (
-                            <div key={idx} className="shrink-0 px-8 py-4"><span className="text-xl font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors">{skills}</span></div>
+                        {[...skills, ...skills].map((skill, idx) => (
+                            <div key={idx} className="shrink-0 flex items-center gap-2.5 px-8 py-4">
+                                <skill.icon className="w-5 h-5 text-white group-hover:text-primary transition-colors" />
+                                <span className="text-xl font-semibold text-white hover:text-muted-foreground transition-colors">{skill.name}</span>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -165,4 +186,4 @@ export const Hero = () => {
             </a>
         </div>
     </section>)
-};   
+};

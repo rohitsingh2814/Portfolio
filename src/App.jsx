@@ -10,6 +10,7 @@ import { Contact } from '@/sections/contact';
 import { Education } from './sections/Education';
 import {CodingStats} from './sections/stats';
 import { Footer } from './layouts/Footer';
+import {Certification} from '@/sections/Certification'
 
 
 
@@ -22,7 +23,9 @@ const App = () => {
         <About/>
         <Projects/>
         <Experience/>
+    
         <Education/>
+         <Certification/>
         <CodingStats/>
         <Testimonials/>
         <Contact/>

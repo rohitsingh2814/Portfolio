@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { ExternalLink, Loader, AlertCircle, TrendingUp } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, TrendingUp } from "lucide-react";
 
 // ── Usernames ──────────────────────────────────────────────
 const GITHUB_USERNAME = "rohitsingh2814";
@@ -7,6 +7,29 @@ const LEETCODE_USERNAME = "rohitkrsingh2814";
 const GFG_USERNAME = "rohitsingh7cl26";
 
 // ── Hardcoded Stats ────────────────────────────────────────
+const LEETCODE_STATS = {
+  totalSolved: 120,
+  ranking: 845231,
+  easy: 65,
+  medium: 45,
+  hard: 10,
+  url: `https://leetcode.com/u/${LEETCODE_USERNAME}/`,
+};
+
+const GITHUB_STATS = {
+  publicRepos: 18,
+  followers: 12,
+  following: 20,
+  languages: [
+    { label: "JavaScript", value: 40 },
+    { label: "TypeScript", value: 25 },
+    { label: "Python", value: 20 },
+    { label: "C++", value: 10 },
+    { label: "Java", value: 5 },
+  ],
+  url: `https://github.com/${GITHUB_USERNAME}`,
+};
+
 const GFG_STATS = {
   codingScore: 18,
   problemsSolved: 12,
@@ -51,7 +74,7 @@ const PLATFORMS = [
     accent: "#f97316",
     bg: "rgba(249,115,22,0.08)",
     border: "rgba(249,115,22,0.35)",
-    url: `https://leetcode.com/u/${LEETCODE_USERNAME}/`,
+    url: LEETCODE_STATS.url,
     logo: "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
   },
   {
@@ -60,7 +83,7 @@ const PLATFORMS = [
     accent: "#e2e8f0",
     bg: "rgba(226,232,240,0.06)",
     border: "rgba(226,232,240,0.2)",
-    url: `https://github.com/${GITHUB_USERNAME}`,
+    url: GITHUB_STATS.url,
     logo: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
   },
   {
@@ -101,8 +124,6 @@ const TAB_STYLES = `
     border-bottom: 1px solid rgba(255,255,255,0.06);
     padding: 14px 16px 0;
     justify-content:space-between;
-      
-
   }
   .cs-tab-btn {
     display: flex;
@@ -215,175 +236,41 @@ const SectionLabel = ({ children }) => (
   </div>
 );
 
-// ── Loading State ──────────────────────────────────────────
-const LoadingState = () => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "48px 0",
-      gap: "12px",
-    }}
-  >
-    <Loader
-      style={{
-        width: 28,
-        height: 28,
-        color: "var(--color-text-secondary)",
-        animation: "spin 1s linear infinite",
-      }}
-    />
-    <span style={{ fontSize: "13px", color: "var(--color-text-secondary)" }}>
-      Fetching live stats...
-    </span>
-    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-  </div>
-);
-
-// ── Error State ────────────────────────────────────────────
-const ErrorState = ({ platform, msg }) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "40px 0",
-      gap: "12px",
-      textAlign: "center",
-    }}
-  >
-    <AlertCircle style={{ width: 28, height: 28, color: "#ef4444" }} />
-    <p
-      style={{
-        fontSize: "13px",
-        color: "var(--color-text-secondary)",
-        maxWidth: "280px",
-        lineHeight: 1.6,
-        margin: 0,
-      }}
-    >
-      {msg}
-    </p>
-    <a
-      href={platform.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        fontSize: "12px",
-        color: platform.accent,
-        display: "flex",
-        alignItems: "center",
-        gap: "4px",
-        textDecoration: "none",
-      }}
-    >
-      View profile <ExternalLink style={{ width: 12, height: 12 }} />
-    </a>
-  </div>
-);
-
-// ── LeetCode Panel ─────────────────────────────────────────
+// ── LeetCode Panel (hardcoded) ──────────────────────────────
 const LeetCodePanel = ({ platform }) => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-     const proxyUrl='https://cors-anywhere.herokuapp.com/';
-     const targeturl='https://leetcode.com/graphql';
-  useEffect(() => {
-    fetch(proxyUrl+targeturl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `query getUserProfile($username: String!) {
-          matchedUser(username: $username) {
-            submitStatsGlobal { acSubmissionNum { difficulty count } }
-            profile { ranking }
-          }
-        }`,
-        variables: { username: LEETCODE_USERNAME },
-      }),
-    })
-      .then((r) => r.json())
-      .then((d) => {
-        const stats = d?.data?.matchedUser?.submitStatsGlobal?.acSubmissionNum;
-        const ranking = d?.data?.matchedUser?.profile?.ranking;
-        if (!stats) throw new Error();
-        const easy = stats.find((s) => s.difficulty === "Easy")?.count ?? 0;
-        const med = stats.find((s) => s.difficulty === "Medium")?.count ?? 0;
-        const hard = stats.find((s) => s.difficulty === "Hard")?.count ?? 0;
-        setData({ easy, med, hard, total: easy + med + hard, ranking });
-      })
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) return <LoadingState />;
-  if (error)
-    return (
-      <ErrorState
-        platform={platform}
-        msg="LeetCode GraphQL is blocked on localhost. Stats will appear on your deployed site."
-      />
-    );
-
+  const total = LEETCODE_STATS.totalSolved;
   return (
     <div>
       <div style={{ display: "flex", gap: "10px", marginBottom: "24px", flexWrap: "wrap" }}>
-        <StatNum label="Total Solved" value={data.total} accent={platform.accent} />
+        <StatNum label="Total Solved" value={total} accent={platform.accent} />
         <StatNum
           label="Global Rank"
-          value={data.ranking ? `#${data.ranking.toLocaleString()}` : "—"}
+          value={LEETCODE_STATS.ranking ? `#${LEETCODE_STATS.ranking.toLocaleString()}` : "—"}
           accent={platform.accent}
         />
       </div>
       <SectionLabel>Difficulty Breakdown</SectionLabel>
-      <DiffBar label="Easy" value={data.easy} total={data.total} color="#22c55e" textColor="#22c55e" />
-      <DiffBar label="Medium" value={data.med} total={data.total} color="#eab308" textColor="#eab308" />
-      <DiffBar label="Hard" value={data.hard} total={data.total} color="#ef4444" textColor="#ef4444" />
+      <DiffBar label="Easy" value={LEETCODE_STATS.easy} total={total} color="#22c55e" textColor="#22c55e" />
+      <DiffBar label="Medium" value={LEETCODE_STATS.medium} total={total} color="#eab308" textColor="#eab308" />
+      <DiffBar label="Hard" value={LEETCODE_STATS.hard} total={total} color="#ef4444" textColor="#ef4444" />
     </div>
   );
 };
 
-// ── GitHub Panel ───────────────────────────────────────────
-const GitHubPanel = ({ platform }) => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    fetch(`https://api.github.com/users/${GITHUB_USERNAME}`)
-      .then((r) => r.json())
-      .then((d) => {
-        if (d.message) throw new Error();
-        setData(d);
-      })
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) return <LoadingState />;
-  if (error) return <ErrorState platform={platform} msg="Could not reach GitHub API." />;
-
-  const langs = ["JavaScript", "TypeScript", "Python", "C++", "Java"];
-  const fakePcts = [40, 25, 20, 10, 5];
-
-  return (
-    <div>
-      <div style={{ display: "flex", gap: "10px", marginBottom: "24px", flexWrap: "wrap" }}>
-        <StatNum label="Public Repos" value={data.public_repos} accent={platform.accent} />
-        <StatNum label="Followers" value={data.followers} accent={platform.accent} />
-        <StatNum label="Following" value={data.following} accent={platform.accent} />
-      </div>
-      <SectionLabel>Top Languages (estimated)</SectionLabel>
-      {langs.map((lang, i) => (
-        <DiffBar key={lang} label={lang} value={fakePcts[i]} total={100} color={platform.accent} />
-      ))}
+// ── GitHub Panel (hardcoded) ────────────────────────────────
+const GitHubPanel = ({ platform }) => (
+  <div>
+    <div style={{ display: "flex", gap: "10px", marginBottom: "24px", flexWrap: "wrap" }}>
+      <StatNum label="Public Repos" value={GITHUB_STATS.publicRepos} accent={platform.accent} />
+      <StatNum label="Followers" value={GITHUB_STATS.followers} accent={platform.accent} />
+      <StatNum label="Following" value={GITHUB_STATS.following} accent={platform.accent} />
     </div>
-  );
-};
+    <SectionLabel>Top Languages (estimated)</SectionLabel>
+    {GITHUB_STATS.languages.map((lang) => (
+      <DiffBar key={lang.label} label={lang.label} value={lang.value} total={100} color={platform.accent} />
+    ))}
+  </div>
+);
 
 // ── GFG Panel (hardcoded) ──────────────────────────────────
 const GFGPanel = ({ platform }) => (
@@ -475,7 +362,6 @@ export const CodingStats = () => {
   };
 
   const Panel = panels[active];
-  const isLive = ["leetcode", "github"].includes(active);
 
   return (
     <section id="stats" className="py-32 relative overflow-hidden">
@@ -499,7 +385,7 @@ export const CodingStats = () => {
             </span>
           </h2>
           <p className="text-muted-foreground animate-fade-in animation-delay-200">
-            Live stats pulled from my coding profiles — click a platform to explore.
+            Stats pulled from my coding profiles — click a platform to explore.
           </p>
         </div>
 
@@ -522,7 +408,7 @@ export const CodingStats = () => {
             />
 
             {/* Platform Tab Bar — flex-wrap removes scrollbar */}
-            
+
             <div className="cs-tab-bar ">
               {PLATFORMS.map((p) => (
                 <button
@@ -567,7 +453,7 @@ export const CodingStats = () => {
                 </button>
               ))}
             </div>
-          
+
 
             {/* Panel Header */}
             <div
@@ -617,7 +503,7 @@ export const CodingStats = () => {
                 alignItems: "center",
               }}
             >
-             
+
               <div style={{ display: "flex", gap: "4px" }}>
                 {PLATFORMS.map((p) => (
                   <div
