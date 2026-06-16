@@ -8,12 +8,12 @@ import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 
 const projects = [
     {
-        title: "Portfolio",
-        description: "A modern personal portfolio showcasing my projects, skills, and experience with a clean and responsive UI",
+        title: "QueryHub",
+        description: "It is social questioning website with feature of login and logout and dyamic question section of every user and answer of every user is show to every user using database.",
         image: "/projects/projects1.png",
         tags: ["React", "tailwindCSS", "Vite"],
         link: "#",
-        github: "https://github.com/rohitsingh2814/Portfolio",
+        github: "https://github.com/rohitsingh2814/Queryhub",
     }
     , {
         title: "KrushAI",
@@ -28,7 +28,7 @@ const projects = [
         image: "/projects/projects4.png",
         tags: ["React", "typeScript", "MongoDb", "Node.js"],
         link: "#",
-        github: "#",
+        github: "",
     }, {
         title: "eCommerce Website",
         description:

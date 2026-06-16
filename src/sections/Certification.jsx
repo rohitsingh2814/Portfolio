@@ -16,7 +16,7 @@ const certifications = [
     issuer: "Meta (Coursera)",
     date: "2024",
     description: "Build scalable databases for promgram and flow sql and nosql.",
-    image: "public/cerficates/databases.jpg",
+    image: "cerficates/databases.jpg",
     url: "#",
   },
   {
@@ -32,7 +32,7 @@ const certifications = [
     issuer: "freeCodeCamp",
     date: "2023",
     description: "HTML5, CSS3, Flexbox, Grid, and accessible layouts.",
-    image: "public/cerficates/image.png",
+    image: "cerficates/image.png",
     url: "#",
   },
   {
@@ -48,7 +48,7 @@ const certifications = [
     issuer: "coursera",
     date: "2023",
     description: "Testing fundamentals and levels ,Test automation.",
-    image: "public/cerficates/software_testing.jpg",
+    image: "cerficates/software_testing.jpg",
     url: "#",
   },
   {
@@ -56,7 +56,7 @@ const certifications = [
     issuer: "HackerRank",
     date: "2023",
     description: "Pytnon fundamentals and Logic-building across data structures & algorithms.",
-    image: "public/cerficates/python.png",
+    image: "cerficates/python.png",
     url: "#",
   },
   {
